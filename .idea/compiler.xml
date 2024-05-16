@@ -6,8 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="VersionControll" />
+        <module name="Shared" />
+        <module name="v1_20_R3" />
+        <module name="Build" />
+        <module name="v1_8_R3" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="R1_20_R3" target="1.8" />
+      <module name="untitled" target="17" />
+      <module name="v_1_20_R3" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

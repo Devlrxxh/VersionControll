@@ -1,4 +1,0 @@
-name: VersionControll
-version: '${project.version}'
-main: dev.lrxh.versioncontroll.VersionControll
-api-version: '1.20'
