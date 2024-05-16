@@ -7,9 +7,10 @@ import dev.lrxh.v1_8_R3.sounds.Sound;
 import dev.lrxh.v1_8_R3.utils.ChatComponent;
 import dev.lrxh.v1_8_R3.utils.ColorUtils;
 import dev.lrxh.v1_8_R3.utils.PlayerUtils;
+import dev.lrxh.v1_8_R3.utils.chunk.ChunkUtilsUtil;
 
 public class v1_8_R3 extends VersionHandler {
     public v1_8_R3() {
-        super(new PlayerUtils(), new Config(), new GameRule(), new ColorUtils(), new ChatComponent(), new Sound());
+        super(new PlayerUtils(), new Config(), new GameRule(), new ColorUtils(), new ChatComponent(), new Sound(), new ChunkUtilsUtil());
     }
 }

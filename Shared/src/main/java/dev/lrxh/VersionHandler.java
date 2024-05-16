@@ -6,6 +6,7 @@ import dev.lrxh.sounds.ISound;
 import dev.lrxh.utils.IColorUtils;
 import dev.lrxh.utils.IPlayerUtils;
 import dev.lrxh.utils.chatComponent.IChatComponent;
+import dev.lrxh.utils.chunk.IChunkUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,4 +19,5 @@ public class VersionHandler {
     private IColorUtils colorUtils;
     private IChatComponent chatComponent;
     private ISound sound;
+    private IChunkUtils chunk;
 }
