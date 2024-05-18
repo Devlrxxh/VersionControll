@@ -677,6 +677,16 @@
                   </llm>
                 </llm>
               </chat>
+              <chat>
+                <internalId value="ef68851c-e6da-45c3-8fe4-6efbf53c0316" />
+                <llm>
+                  <llm>
+                    <model value="anthropic/claude-3-sonnet-20240229" />
+                    <provider value="Anthropic" />
+                    <title value="Claude 3 Sonnet" />
+                  </llm>
+                </llm>
+              </chat>
             </list>
           </chats>
           <defaultLlm>
