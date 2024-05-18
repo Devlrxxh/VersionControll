@@ -11,6 +11,7 @@ import dev.lrxh.v1_20_R3.utils.chunk.ChunkUtilsUtil;
 
 public class v1_20_R3 extends VersionHandler {
     public v1_20_R3() {
-        super(new PlayerUtils(), new Config(), new GameRule(), new ColorUtils(), new ChatComponent(), new Sound(), new ChunkUtilsUtil());
+        super(new PlayerUtils(),
+                new Config(), new GameRule(), new ColorUtils(), new ChatComponent(), new Sound(), new ChunkUtilsUtil());
     }
 }

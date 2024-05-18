@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.List;
 import java.util.UUID;
 
 public class PlayerUtils implements IPlayerUtils<Object> {
@@ -52,8 +53,10 @@ public class PlayerUtils implements IPlayerUtils<Object> {
 
         if(message instanceof String){
             player.sendMessage((String) message);
-        } else if (message instanceof TextComponent) {
-            player.sendMessage((TextComponent) message);
+        } else if (message instanceof Component) {
+            player.sendMessage((Component) message);
+        } else if (message instanceof TextComponent.Builder) {
+            player.sendMessage((TextComponent.Builder) message);
         }
     }
 
