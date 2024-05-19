@@ -12,7 +12,6 @@
     <name>VersionControll</name>
     <modules>
         <module>v1_20_R3</module>
-        <module>v1_8_R3</module>
         <module>Build</module>
         <module>Shared</module>
         <module>v1_19_R3</module>

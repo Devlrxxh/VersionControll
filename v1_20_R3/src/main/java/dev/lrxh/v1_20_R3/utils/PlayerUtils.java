@@ -60,6 +60,20 @@ public class PlayerUtils implements IPlayerUtils<Object> {
         }
     }
 
+    public void sendMessage(UUID playerUUID, List<Object> content) {
+        TextComponent.Builder builder = Component.text();
+
+        for (Object obj : content) {
+            if (obj instanceof String message) {
+                builder.append(Component.text(message));
+            } else if (obj instanceof TextComponent) {
+                builder.append((TextComponent) obj);
+            }
+        }
+
+        sendMessage(playerUUID, builder);
+    }
+
     @Override
     public ItemStack getPlayerHead(UUID playerUUID) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
