@@ -13,7 +13,6 @@ public class VersionControll {
     public VersionControll(JavaPlugin plugin) {
         this.plugin = plugin;
         this.handler = findVersion(plugin.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]);
-        plugin.getLogger().info(plugin.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]);
     }
 
     private VersionHandler findVersion(String version) {
