@@ -17,7 +17,6 @@ public class VersionControll {
 
     private VersionHandler findVersion(String version) {
         try {
-            plugin.getLogger().info("Detected version " + version);
             return Version.valueOf(version).getVersionHandler();
         } catch (IllegalArgumentException e) {
             plugin.getLogger().severe("Server version not supported " + version);
