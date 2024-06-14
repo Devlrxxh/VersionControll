@@ -1,11 +1,11 @@
 package dev.lrxh.v1_17_R3;
 
 import dev.lrxh.VersionHandler;
+import dev.lrxh.v1_17_R3.config.Config;
 import dev.lrxh.v1_17_R3.gameRule.GameRule;
 import dev.lrxh.v1_17_R3.sounds.Sound;
-import dev.lrxh.v1_17_R3.utils.ColorUtils;
-import dev.lrxh.v1_17_R3.config.Config;
 import dev.lrxh.v1_17_R3.utils.ChatComponent;
+import dev.lrxh.v1_17_R3.utils.ColorUtils;
 import dev.lrxh.v1_17_R3.utils.PlayerUtils;
 import dev.lrxh.v1_17_R3.utils.chunk.ChunkUtilsUtil;
 

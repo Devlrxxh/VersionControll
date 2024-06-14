@@ -7,5 +7,6 @@ import java.util.List;
 
 public class Config implements IConfig {
     @Override
-    public void addComment(Configuration configuration, String path, List<String> comments) {}
+    public void addComment(Configuration configuration, String path, List<String> comments) {
+    }
 }

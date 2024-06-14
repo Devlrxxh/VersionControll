@@ -51,7 +51,7 @@ public class PlayerUtils implements IPlayerUtils<Object> {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player == null) return;
 
-        if(message instanceof String){
+        if (message instanceof String) {
             player.sendMessage((String) message);
         } else if (message instanceof Component) {
             player.sendMessage((Component) message);
@@ -73,7 +73,6 @@ public class PlayerUtils implements IPlayerUtils<Object> {
 
         sendMessage(playerUUID, builder);
     }
-
 
     @Override
     public ItemStack getPlayerHead(UUID playerUUID) {
