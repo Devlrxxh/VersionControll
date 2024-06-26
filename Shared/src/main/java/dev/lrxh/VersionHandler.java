@@ -5,6 +5,7 @@ import dev.lrxh.gameRule.IGameRule;
 import dev.lrxh.sounds.ISound;
 import dev.lrxh.utils.IColorUtils;
 import dev.lrxh.utils.IPlayerUtils;
+import dev.lrxh.utils.IReflectionUtils;
 import dev.lrxh.utils.chatComponent.IChatComponent;
 import dev.lrxh.utils.chunk.IChunkUtils;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,5 @@ public class VersionHandler {
     private IChatComponent chatComponent;
     private ISound sound;
     private IChunkUtils chunk;
+    private IReflectionUtils reflection;
 }

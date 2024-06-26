@@ -1,65 +1,39 @@
 package dev.lrxh.v1_16_R3.utils.chunk;
 
+import dev.lrxh.utils.ConcurrentLinkedHashMap;
 import dev.lrxh.utils.chunk.Cuboid;
 import dev.lrxh.utils.chunk.IChunkUtils;
-import org.bukkit.*;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.HumanEntity;
+import dev.lrxh.v1_16_R3.utils.ReflectionUtils;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ChunkUtilsUtil implements IChunkUtils {
+    private final ReflectionUtils reflection = new ReflectionUtils();
 
     @Override
-    public void restoreSnapshot(LinkedHashMap<Chunk, ChunkSnapshot> chunkSnapshots, World world) {
-        chunkSnapshots.entrySet().parallelStream()
-                .filter(entry -> {
-                    Chunk chunk = entry.getKey();
-                    return (world.getChunkAt(chunk.getX(), chunk.getZ()).equals(chunk));
-                })
-                .forEach(entry -> {
-                    Chunk chunk = entry.getKey();
-                    ChunkSnapshot snapshot = entry.getValue();
-                    World worldChunk = chunk.getWorld();
-                    int maxHeight = worldChunk.getMaxHeight();
-
-                    for (int x = 0; x < 16; x++) {
-                        for (int y = 0; y < maxHeight; y++) {
-                            for (int z = 0; z < 16; z++) {
-                                Material material = snapshot.getBlockType(x, y, z);
-                                BlockData blockData = snapshot.getBlockData(x, y, z);
-
-                                if (blockData.equals(world.getBlockData(x, y, z))) {
-                                    Block block = chunk.getBlock(x, y, z);
-                                    block.setType(material);
-                                    block.setBlockData(blockData, false);
-                                }
-                            }
-                        }
-                    }
-
-                    for (Entity entity : chunk.getEntities()) {
-                        if (!(entity instanceof HumanEntity)) {
-                            entity.remove();
-                        }
-                    }
-                });
+    public void restoreSnapshot(ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots, World world) {
+        for (Map.Entry<Chunk, Object[]> entry : chunkSnapshots.entrySet()) {
+            Chunk chunk = entry.getKey();
+            reflection.setChunkSections(chunk, entry.getValue());
+            world.refreshChunk(chunk.getX(), chunk.getZ());
+        }
     }
 
     @Override
-    public LinkedHashMap<Chunk, ChunkSnapshot> takeSnapshot(World world, Location min, Location max) {
+    public ConcurrentLinkedHashMap<Chunk, Object[]> takeSnapshot(World world, Location min, Location max) {
         Cuboid cuboid = new Cuboid(min, max);
-        LinkedHashMap<Chunk, ChunkSnapshot> chunkSnapshots = new LinkedHashMap<>();
+        ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots = new ConcurrentLinkedHashMap<>();
 
         for (int x = cuboid.getLowerCorner().getBlockX() >> 4; x <= cuboid.getUpperCorner().getBlockX() >> 4; x++) {
             for (int z = cuboid.getLowerCorner().getBlockZ() >> 4; z <= cuboid.getUpperCorner().getBlockZ() >> 4; z++) {
                 Chunk chunk = world.getChunkAt(x, z);
-                ChunkSnapshot snapshot = chunk.getChunkSnapshot();
-                chunkSnapshots.put(chunk, snapshot);
+                chunkSnapshots.put(chunk, reflection.getChunkSections(chunk));
             }
         }
+
         return chunkSnapshots;
     }
 }
