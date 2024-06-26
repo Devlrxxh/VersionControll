@@ -60,6 +60,7 @@ public class PlayerUtils implements IPlayerUtils<Object> {
         }
     }
 
+    @Override
     public void sendMessage(UUID playerUUID, List<Object> content) {
         TextComponent.Builder builder = Component.text();
 
@@ -73,7 +74,6 @@ public class PlayerUtils implements IPlayerUtils<Object> {
 
         sendMessage(playerUUID, builder);
     }
-
 
     @Override
     public ItemStack getPlayerHead(UUID playerUUID) {
