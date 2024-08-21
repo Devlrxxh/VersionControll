@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 
 @Getter
 public enum Version {
+    v1_21_R1(),
     v1_20_R6(),
     v1_20_R5(),
     v1_20_R4(),
