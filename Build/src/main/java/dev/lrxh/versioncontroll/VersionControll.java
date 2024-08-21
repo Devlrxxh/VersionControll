@@ -12,16 +12,12 @@ public class VersionControll {
 
     public VersionControll(JavaPlugin plugin) {
         this.plugin = plugin;
-        this.handler = findVersion(plugin.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]);
+        this.handler = getVersion();
     }
 
-    private VersionHandler findVersion(String version) {
-        try {
-            return Version.valueOf(version).getVersionHandler();
-        } catch (IllegalArgumentException e) {
-            plugin.getLogger().severe("Server version not supported " + version);
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
-            return null;
-        }
+    private VersionHandler getVersion() {
+        Version v = VersionUtils.extractVersion(plugin.getServer().getBukkitVersion());
+        if(v == null) return null;
+        return v.getVersionHandler();
     }
 }
