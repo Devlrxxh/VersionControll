@@ -11,6 +11,7 @@
 
     <name>VersionControll</name>
     <modules>
+        <module>v1_21_R1</module>
         <module>v1_20_R3</module>
         <module>Build</module>
         <module>Shared</module>
@@ -28,16 +29,8 @@
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
             <id>paper-api</id>
-            <url>https://repo.papermc.io/repository/maven-public//</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
