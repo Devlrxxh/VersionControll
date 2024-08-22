@@ -2,7 +2,6 @@ package dev.lrxh.v1_21_R1.utils;
 
 import dev.lrxh.utils.IReflectionUtils;
 import lombok.SneakyThrows;
-import org.bukkit.Bukkit;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -23,7 +22,6 @@ public class ReflectionUtils implements IReflectionUtils {
     @Override
     public void load() {
         try {
-            String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
             String CRAFT_BUKKIT_PACKAGE = "org.bukkit.craftbukkit.";
             String NET_MINECRAFT_SERVER_PACKAGE = "net.minecraft.";
 
@@ -33,9 +31,9 @@ public class ReflectionUtils implements IReflectionUtils {
             GET_SECTIONS_FIELD = I_CHUNK_ACCESS_CLASS.getDeclaredField("m");
             GET_SECTIONS_FIELD.setAccessible(true);
 
-            CHUNK_HANDLE = CRAFT_CHUNK_CLASS.getDeclaredMethod("getHandle", Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus"));
+            CHUNK_HANDLE = CRAFT_CHUNK_CLASS.getDeclaredMethod("getHandle", Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.status.ChunkStatus"));
 
-            Class<?> CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus");
+            Class<?> CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.status.ChunkStatus");
 
             CHUNK_STATUS_FIELD = CHUNK_STATUS_CLASS.getDeclaredField("k");
             CHUNK_STATUS_FIELD.setAccessible(true);

@@ -60,7 +60,12 @@
             <groupId>dev.lrxh</groupId>
             <artifactId>v1_20_R3</artifactId>
             <version>1.0</version>
+        </dependency>
 
+        <dependency>
+            <groupId>dev.lrxh</groupId>
+            <artifactId>v1_21_R1</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>
@@ -82,6 +87,7 @@
                             <include>dev.lrxh:v1_18_R3</include>
                             <include>dev.lrxh:v1_19_R3</include>
                             <include>dev.lrxh:v1_20_R3</include>
+                            <include>dev.lrxh:v1_21_R1</include>
                         </includes>
                     </artifactSet>
                 </configuration>
