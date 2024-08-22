@@ -48,7 +48,7 @@ public enum Version {
             case v1_19_R1, v1_19_R2, v1_19_R3, v1_19_R4 -> {
                 return new v1_19_R3();
             }
-            case v1_20_R3, v1_20_R1, v1_20_R2, v1_20_R4, v1_20_R5, v1_20_R6 -> {
+            case v1_20_R3, v1_20_R1, v1_20_R2, v1_20_R4, v1_20_R5, v1_20_R6, v1_21_R1 -> {
                 return new v1_20_R3();
             }
         }
