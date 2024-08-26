@@ -10,14 +10,14 @@ public class VersionUtils {
 
     @Nullable
     public Version extractVersion(String bukkitVersion) {
-            String[] versionParts = bukkitVersion.split("-")[0].split("\\.");
-            if (versionParts.length >= 2) {
-                int majorVersion = Integer.parseInt(versionParts[0]);
-                int minorVersion = Integer.parseInt(versionParts[1]);
-                int patchVersion = versionParts.length >= 3 ? Integer.parseInt(versionParts[2]) : 0;
+        String[] versionParts = bukkitVersion.split("-")[0].split("\\.");
+        if (versionParts.length >= 2) {
+            int majorVersion = Integer.parseInt(versionParts[0]);
+            int minorVersion = Integer.parseInt(versionParts[1]);
+            int patchVersion = versionParts.length >= 3 ? Integer.parseInt(versionParts[2]) : 0;
 
-                return Version.valueOf("v" + majorVersion + "_" + minorVersion + "_R" + patchVersion);
-                }
-            return null;
+            return Version.valueOf("v" + majorVersion + "_" + minorVersion + "_R" + patchVersion);
+        }
+        return null;
     }
 }

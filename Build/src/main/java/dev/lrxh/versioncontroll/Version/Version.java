@@ -36,10 +36,14 @@ public enum Version {
 
     private final int number;
 
+    Version(int number) {
+        this.number = number;
+    }
+
     @Nullable
-    public VersionHandler getVersionHandler(){
+    public VersionHandler getVersionHandler() {
         switch (this) {
-            case v1_16_R1, v1_16_R2, v1_16_R3, v1_16_R4 , v1_16_R5-> {
+            case v1_16_R1, v1_16_R2, v1_16_R3, v1_16_R4, v1_16_R5 -> {
                 return new v1_16_R3();
             }
             case v1_17_R1, v1_17_R2 -> {
@@ -63,9 +67,5 @@ public enum Version {
 
     public boolean isHigherThan(Version version) {
         return number >= version.number;
-    }
-
-    Version(int number) {
-        this.number = number;
     }
 }

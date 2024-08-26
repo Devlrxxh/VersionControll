@@ -12,12 +12,16 @@ public class VersionControll {
 
     public VersionControll(JavaPlugin plugin) {
         this.plugin = plugin;
-        this.handler = getVersion();
+        this.handler = getVersionHandler();
     }
 
-    private VersionHandler getVersion() {
+    private VersionHandler getVersionHandler() {
         Version v = VersionUtils.extractVersion(plugin.getServer().getBukkitVersion());
-        if(v == null) return null;
+        if (v == null) return null;
         return v.getVersionHandler();
+    }
+
+    public Version getVersion() {
+        return VersionUtils.extractVersion(plugin.getServer().getBukkitVersion());
     }
 }
