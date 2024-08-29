@@ -14,7 +14,6 @@ public class ReflectionUtils implements IReflectionUtils {
     private Field GET_SECTIONS_FIELD;
     private Class<?> I_CHUNK_ACCESS_CLASS;
 
-
     public ReflectionUtils() {
         load();
     }
@@ -56,9 +55,10 @@ public class ReflectionUtils implements IReflectionUtils {
         Object fullChunkStatus = CHUNK_STATUS_FIELD.get(null);
         Object nmsChunk = getChunkHandle(chunk, fullChunkStatus);
         Object iChunkAccess = I_CHUNK_ACCESS_CLASS.cast(nmsChunk);
-
-        return (Object[]) GET_SECTIONS_FIELD.get(iChunkAccess);
+        Object[] originalSections = (Object[]) GET_SECTIONS_FIELD.get(iChunkAccess);
+        return originalSections.clone();
     }
+
 
     @Override
     @SneakyThrows

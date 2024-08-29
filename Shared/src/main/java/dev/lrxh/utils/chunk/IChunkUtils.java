@@ -1,39 +1,36 @@
 package dev.lrxh.utils.chunk;
 
-import dev.lrxh.utils.ConcurrentLinkedHashMap;
 import dev.lrxh.utils.IReflectionUtils;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public interface IChunkUtils {
 
     IReflectionUtils getReflection();
 
-    default void restoreSnapshot(ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots) {
+    default void restoreSnapshot(HashMap<Chunk, Object[]> chunkSnapshots) {
         for (Map.Entry<Chunk, Object[]> entry : chunkSnapshots.entrySet()) {
             Chunk chunk = entry.getKey();
-            World world = chunk.getWorld();
-            chunk.load();
-            getReflection().setChunkSections(chunk, entry.getValue());
-            world.refreshChunk(chunk.getX(), chunk.getZ());
+            setChunkSections(chunk, entry.getValue());
         }
     }
 
-    default ConcurrentLinkedHashMap<Chunk, Object[]> takeSnapshot(Location min, Location max) {
+    default HashMap<Chunk, Object[]> takeSnapshot(Location min, Location max) {
         Cuboid cuboid = new Cuboid(min, max);
-        ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots = new ConcurrentLinkedHashMap<>();
+        HashMap<Chunk, Object[]> chunkSnapshots = new HashMap<>();
 
         for (Chunk chunk : cuboid.getChunks()) {
-                chunkSnapshots.put(chunk, getReflection().getChunkSections(chunk));
-            }
+            chunkSnapshots.put(chunk, getReflection().getChunkSections(chunk));
+        }
 
         return chunkSnapshots;
     }
 
-    default void pasteSnapshot(ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots, Location pasteMin, Location pasteMax, World world) {
+    default void pasteSnapshot(HashMap<Chunk, Object[]> chunkSnapshots, Location pasteMin, Location pasteMax, World world) {
         Cuboid pasteCuboid = new Cuboid(pasteMin, pasteMax);
 
         for (Map.Entry<Chunk, Object[]> entry : chunkSnapshots.entrySet()) {
@@ -55,10 +52,14 @@ public interface IChunkUtils {
             int newChunkZ = originalChunkZ + (offsetZ >> 4);
 
             Chunk newChunk = world.getChunkAt(newChunkX, newChunkZ);
-
-            getReflection().setChunkSections(newChunk, chunkData);
-            world.refreshChunk(newChunkX, newChunkZ);
+            setChunkSections(newChunk, chunkData);
         }
     }
 
+    private void setChunkSections(Chunk chunk, Object[] sections) {
+        World world = chunk.getWorld();
+        chunk.load();
+        getReflection().setChunkSections(chunk, sections);
+        world.refreshChunk(chunk.getX(), chunk.getZ());
+    }
 }
