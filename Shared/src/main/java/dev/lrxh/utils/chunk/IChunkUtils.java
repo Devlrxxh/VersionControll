@@ -12,24 +12,23 @@ public interface IChunkUtils {
 
     IReflectionUtils getReflection();
 
-    default void restoreSnapshot(ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots, World world) {
+    default void restoreSnapshot(ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots) {
         for (Map.Entry<Chunk, Object[]> entry : chunkSnapshots.entrySet()) {
             Chunk chunk = entry.getKey();
+            World world = chunk.getWorld();
+            chunk.load();
             getReflection().setChunkSections(chunk, entry.getValue());
             world.refreshChunk(chunk.getX(), chunk.getZ());
         }
     }
 
-    default ConcurrentLinkedHashMap<Chunk, Object[]> takeSnapshot(World world, Location min, Location max) {
+    default ConcurrentLinkedHashMap<Chunk, Object[]> takeSnapshot(Location min, Location max) {
         Cuboid cuboid = new Cuboid(min, max);
         ConcurrentLinkedHashMap<Chunk, Object[]> chunkSnapshots = new ConcurrentLinkedHashMap<>();
 
-        for (int x = cuboid.getLowerCorner().getBlockX() >> 4; x <= cuboid.getUpperCorner().getBlockX() >> 4; x++) {
-            for (int z = cuboid.getLowerCorner().getBlockZ() >> 4; z <= cuboid.getUpperCorner().getBlockZ() >> 4; z++) {
-                Chunk chunk = world.getChunkAt(x, z);
+        for (Chunk chunk : cuboid.getChunks()) {
                 chunkSnapshots.put(chunk, getReflection().getChunkSections(chunk));
             }
-        }
 
         return chunkSnapshots;
     }

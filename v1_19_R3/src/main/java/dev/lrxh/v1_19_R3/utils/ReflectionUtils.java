@@ -11,7 +11,6 @@ public class ReflectionUtils implements IReflectionUtils {
 
     private Class<?> CRAFT_CHUNK_CLASS;
     private Method CHUNK_HANDLE;
-    private Class<?> CHUNK_STATUS_CLASS;
     private Field CHUNK_STATUS_FIELD;
     private Field GET_SECTIONS_FIELD;
     private Class<?> I_CHUNK_ACCESS_CLASS;
@@ -36,7 +35,7 @@ public class ReflectionUtils implements IReflectionUtils {
 
             CHUNK_HANDLE = CRAFT_CHUNK_CLASS.getDeclaredMethod("getHandle", Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus"));
 
-            CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus");
+            Class<?> CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus");
 
             CHUNK_STATUS_FIELD = CHUNK_STATUS_CLASS.getDeclaredField("k");
             CHUNK_STATUS_FIELD.setAccessible(true);

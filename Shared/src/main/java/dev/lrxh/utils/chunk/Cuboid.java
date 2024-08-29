@@ -36,10 +36,6 @@ public class Cuboid {
 
     public List<Chunk> getChunks() {
         List<Chunk> chunks = new ArrayList<>();
-        int x1 = getLowerX() & ~0xf;
-        int x2 = getUpperX() & ~0xf;
-        int z1 = getLowerZ() & ~0xf;
-        int z2 = getUpperZ() & ~0xf;
 
         for (int x = x1; x <= x2; x += 16) {
             for (int z = z1; z <= z2; z += 16) {
@@ -85,7 +81,6 @@ public class Cuboid {
         int edgeZ = Math.max(z1, z2);
         return new Location(world, edgeX, y1, edgeZ);
     }
-
 
     public Location getLowerCorner() {
         return new Location(world, x1, y1, z1);
