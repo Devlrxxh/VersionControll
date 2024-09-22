@@ -11,11 +11,9 @@ public class ReflectionUtils implements IReflectionUtils {
 
     private Class<?> CRAFT_CHUNK_CLASS;
     private Method CHUNK_HANDLE;
-    private Class<?> CHUNK_STATUS_CLASS;
     private Field CHUNK_STATUS_FIELD;
     private Field GET_SECTIONS_FIELD;
     private Class<?> I_CHUNK_ACCESS_CLASS;
-
 
     public ReflectionUtils() {
         load();
@@ -36,7 +34,8 @@ public class ReflectionUtils implements IReflectionUtils {
 
             CHUNK_HANDLE = CRAFT_CHUNK_CLASS.getDeclaredMethod("getHandle", Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus"));
 
-            CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus");
+
+            Class<?> CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus");
 
             CHUNK_STATUS_FIELD = CHUNK_STATUS_CLASS.getDeclaredField("k");
             CHUNK_STATUS_FIELD.setAccessible(true);
@@ -48,26 +47,26 @@ public class ReflectionUtils implements IReflectionUtils {
 
     @Override
     @SneakyThrows
-    public Object getChunkHandle(Object chunk, Object chunkStatus) {
+    public Object getChunkHandle(Object chunk) {
         Object craftChunk = CRAFT_CHUNK_CLASS.cast(chunk);
-        return CHUNK_HANDLE.invoke(craftChunk, chunkStatus);
+        return CHUNK_HANDLE.invoke(craftChunk, CHUNK_STATUS_FIELD.get(null));
     }
 
     @Override
     @SneakyThrows
     public Object[] getChunkSections(Object chunk) {
-        Object fullChunkStatus = CHUNK_STATUS_FIELD.get(null);
-        Object nmsChunk = getChunkHandle(chunk, fullChunkStatus);
+        Object nmsChunk = getChunkHandle(chunk);
         Object iChunkAccess = I_CHUNK_ACCESS_CLASS.cast(nmsChunk);
 
-        return (Object[]) GET_SECTIONS_FIELD.get(iChunkAccess);
+        Object[] sections = (Object[]) GET_SECTIONS_FIELD.get(iChunkAccess);
+        return sections != null ? sections.clone() : null;
     }
 
     @Override
     @SneakyThrows
     public void setChunkSections(Object chunk, Object[] sections) {
-        Object fullChunkStatus = CHUNK_STATUS_FIELD.get(null);
-        Object nmsChunk = getChunkHandle(chunk, fullChunkStatus);
+
+        Object nmsChunk = getChunkHandle(chunk);
         Object iChunkAccess = I_CHUNK_ACCESS_CLASS.cast(nmsChunk);
         GET_SECTIONS_FIELD.set(iChunkAccess, sections);
     }

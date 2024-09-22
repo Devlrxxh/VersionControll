@@ -13,7 +13,7 @@ public class ReflectionUtils implements IReflectionUtils {
     private Field CHUNK_STATUS_FIELD;
     private Field GET_SECTIONS_FIELD;
     private Class<?> I_CHUNK_ACCESS_CLASS;
-
+    private Class<?> CHUNK_STATUS_CLASS;
     public ReflectionUtils() {
         load();
     }
@@ -34,6 +34,8 @@ public class ReflectionUtils implements IReflectionUtils {
 
             Class<?> CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.status.ChunkStatus");
 
+            CHUNK_STATUS_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "world.level.chunk.ChunkStatus");
+
             CHUNK_STATUS_FIELD = CHUNK_STATUS_CLASS.getDeclaredField("k");
             CHUNK_STATUS_FIELD.setAccessible(true);
 
@@ -44,16 +46,17 @@ public class ReflectionUtils implements IReflectionUtils {
 
     @Override
     @SneakyThrows
-    public Object getChunkHandle(Object chunk, Object chunkStatus) {
+    public Object getChunkHandle(Object chunk) {
         Object craftChunk = CRAFT_CHUNK_CLASS.cast(chunk);
-        return CHUNK_HANDLE.invoke(craftChunk, chunkStatus);
+        return CHUNK_HANDLE.invoke(craftChunk, CHUNK_STATUS_FIELD.get(null));
     }
+
 
     @Override
     @SneakyThrows
     public Object[] getChunkSections(Object chunk) {
-        Object fullChunkStatus = CHUNK_STATUS_FIELD.get(null);
-        Object nmsChunk = getChunkHandle(chunk, fullChunkStatus);
+
+        Object nmsChunk = getChunkHandle(chunk);
         Object iChunkAccess = I_CHUNK_ACCESS_CLASS.cast(nmsChunk);
         Object[] originalSections = (Object[]) GET_SECTIONS_FIELD.get(iChunkAccess);
         return originalSections.clone();
@@ -63,8 +66,8 @@ public class ReflectionUtils implements IReflectionUtils {
     @Override
     @SneakyThrows
     public void setChunkSections(Object chunk, Object[] sections) {
-        Object fullChunkStatus = CHUNK_STATUS_FIELD.get(null);
-        Object nmsChunk = getChunkHandle(chunk, fullChunkStatus);
+
+        Object nmsChunk = getChunkHandle(chunk);
         Object iChunkAccess = I_CHUNK_ACCESS_CLASS.cast(nmsChunk);
         GET_SECTIONS_FIELD.set(iChunkAccess, sections);
     }

@@ -12,6 +12,7 @@
         <module name="v1_16_R3" />
         <module name="v1_20_R3 (1)" />
         <module name="Build" />
+        <module name="v1_21_R1" />
         <module name="Shared" />
         <module name="v1_20_R3" />
       </profile>
